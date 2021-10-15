@@ -50,8 +50,8 @@ class FtgSpider(scrapy.Spider):
 			s_id = x["_id"]
 			ci = x["ci"]
 			li = x["ti"]
-			hi	= x["ti1"]
-			ai	= x["ti2"]
+			hi = x["ti1"]
+			ai = x["ti2"]
 			odds = x['odds']
 			
 
