@@ -30,39 +30,20 @@ class FtgSpider(scrapy.Spider):
 		matches = jsonresponse.get('data')
 		for x in matches:
 			try:
-				nm = []
 				name = x['mn']
-				nm.append(name)
-				home, away = zip(*(s.split("·") for s in nm))
-				home = str(home).replace("('", '')
-				home = home.replace("',)", '')
-				home = str(home).replace('("', '')
-				home = str(home).replace('",)', '')
-				away = str(away).replace("('", '')
-				away = away.replace("',)", '')
-				away = str(away).replace('("', '')
-				away = str(away).replace('",)', '')				
+				name = name.split('·')
+				home = name[0].strip()
+				away = name[1].strip()
 			except:
 				pass
 			
 			try:
-				league = x["tn2"]
-				league = league.split('|', 1)[1]
-				league = league.split('|', 1)[0]
-				cl = []
-				league = league.replace('- ', '#', 1)
-				cl.append(league)
-				country = None
-				country, league =  zip(*(s.split("#") for s in cl))
-				country = str(country).replace("('", '')
-				country = country.replace("',)", '')
-				country = country.strip()
-				league = str(league).replace("('", '')
-				league = league.replace("',)", '')
-				# c_league = country + "_" + league
-
-				# home_c = home + "_" + country
-				# away_c = away + "_" + country
+				cleague = x["tn2"]
+				cleague = cleague.split('|', 1)[1]
+				cleague = cleague.split('|', 1)[0]
+				cleague = cleague.split(' - ')
+				country = cleague[0].strip()
+				league = cleague[1].strip()
 			except:
 				pass
 			dt = x["mld"]
@@ -142,13 +123,10 @@ class FtgSpider(scrapy.Spider):
 				'ci': ci,
 				'league': league,
 				'li': li,
-				# 'c_league': c_league,
 				'home': home,
 				'hi': hi,
-				# 'home_c': home_c,
 				'away': away,
-				'ai': ai,
-				# 'away_c': away_c,				
+				'ai': ai,			
 				'dt': dt,
 				'_1_': _1_,
 				'_X_': _X_,
